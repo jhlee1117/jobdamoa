@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="companyns">
+
+	<select id="selectCom_nm" parameterType="integer" resultType="company">
+		select com_name from company where com_num = #{com_num}
+	</select>
+	
+	<select id="selectCom" parameterType="integer" resultType="company">
+		select * from company where com_num = #{com_num}
+	</select>
+	
+	<select id="selectLogin" parameterType="string" resultType="company">
+		select * from company where com_id = #{com_id}
+	</select>
+	
+	<select id="findComId" parameterType="string" resultType="company">
+		select * from company where com_email = #{com_email}
+	</select>
+	
+	<update id="newComPw" parameterType="company">
+		update company set com_password = #{com_password} where com_id = #{com_id}
+	</update>
+	
+	<select id="selectCom_bnm" parameterType="string" resultType="company">
+		select * from company where com_business_num = #{com_business_num}
+	</select>
+	
+	<select id="selectCom_email" parameterType="string" resultType="company">
+		select * from company where com_email = #{com_email}
+	</select>
+	
+	<select id="selectCom_pno" parameterType="string" resultType="company">
+		select * from company where com_pno = #{com_pno}
+	</select>
+	
+	<select id="giveCom_num" resultType="integer">
+		select nvl(max(com_num),0) + 1 from company
+	</select>
+	
+	<insert id="insertCom" parameterType="company">
+		insert into company values(#{com_num}, #{com_id}, #{com_password}, default, #{com_email}, #{com_business_num},
+									#{com_name}, #{com_homepage}, #{com_emp_num}, #{com_sales}, default, #{com_address},
+									#{com_pno}, default)
+	</insert>
+	
+	<update id="updateCom" parameterType="company">
+		update company set com_pno = #{com_pno}, com_email = #{com_email}, com_address = #{com_address}, com_emp_num = #{com_emp_num},
+							com_sales = #{com_sales}, com_password = #{com_password}, com_homepage = #{com_homepage} where com_num = #{com_num}
+	</update>
+	
+	<update id="deleteCom" parameterType="integer">
+		update company set com_invalid = 'y' where com_num = #{com_num}
+	</update>
+	
+</mapper>

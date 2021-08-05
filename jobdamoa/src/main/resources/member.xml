@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberns">
+
+	<select id="selectLogin" parameterType="string" resultType="member">
+		select * from member where mem_id = #{mem_id}
+	</select>
+
+	<select id="findMemId" parameterType="string" resultType="member">
+		select * from member where mem_email = #{mem_email}
+	</select>
+	
+	<update id="newMemPw" parameterType="member">
+		update member set mem_password = #{mem_password} where mem_id = #{mem_id}
+	</update>
+	
+	<select id="giveMem_num" resultType="integer">
+		select nvl(max(mem_num),0) + 1 from member
+	</select>
+	
+	<select id="selectMem_email" parameterType="string" resultType="member">
+		select * from member where mem_email = #{mem_email}
+	</select>
+	
+	<insert id="insertMem" parameterType="member">
+		insert into member values(#{mem_num}, #{mem_id}, #{mem_password}, #{mem_nickname}, default, 
+								  #{mem_email}, default, default)
+	</insert>
+	
+	<select id="selectMem" parameterType="integer" resultType="member">
+		select * from member where mem_num = #{mem_num}
+	</select>
+	
+	<update id="updateMem" parameterType="member">
+		update member set mem_nickname = #{mem_nickname}, mem_password = #{mem_password}, mem_email = #{mem_email}
+		where mem_num = #{mem_num} 
+	</update>
+	
+	<update id="deleteMem" parameterType="integer">
+		update member set mem_invalid = 'y' where mem_num = #{mem_num}
+	</update>
+	
+</mapper>

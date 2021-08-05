@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<!-- Tiles 구성 및 설정 참조 -->
+	<beans:bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<beans:property name="order" value="1" />
+	</beans:bean>
+	<!-- Tiles 2 Configurer -->
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/tiles.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<context:component-scan
+		base-package="com.ch.jobdamoa" />
+	
+	<beans:bean id="comlc" class="com.ch.jobdamoa.service.ComLoginChk"></beans:bean>
+	<beans:bean id="memlc" class="com.ch.jobdamoa.service.MemLoginChk"></beans:bean>
+	<beans:bean id="manlc" class="com.ch.jobdamoa.service.ManagerLoginChk"></beans:bean>
+	<beans:bean id="anndelchk" class="com.ch.jobdamoa.service.AnnDelChk"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/annInsertForm.do"/>
+			<mapping path="/myAnnList.do"/>
+			<mapping path="/annUpdateForm.do"/>
+			<mapping path="/comInfo.do"/>
+			<mapping path="/comUpdateForm.do"/>
+			<mapping path="/comDeleteForm.do"/>
+			<beans:ref bean="comlc"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/favSave.do"/>
+			<mapping path="/myFavList.do"/>
+			<mapping path="/favDelete.do"/>
+			<mapping path="/memInfo.do"/>
+			<mapping path="/memUpdateForm.do"/>
+			<mapping path="/memDeleteForm.do"/>
+			<mapping path="/scrapSave.do"/>
+			<mapping path="/myScrapList.do"/>
+			<mapping path="/scrapDelete.do"/>
+			<mapping path="/xlsSave.do"/>
+			<beans:ref bean="memlc"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/memberManageForm.do"/>
+			<mapping path="/memberOut.do"/>
+			<mapping path="/memberRestore.do"/>
+			<mapping path="/companyManageForm.do"/>
+			<mapping path="/companyOut.do"/>
+			<mapping path="/companyRestore.do"/>
+			<beans:ref bean="manlc"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/annDeleteForm.do"/>
+			<beans:ref bean="anndelchk"/>
+		</interceptor>
+	</interceptors>
+
+</beans:beans>

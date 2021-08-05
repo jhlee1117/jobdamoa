@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC 
+ "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+ "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- 적용할 레이아웃 -->
+	<definition name="tilesbase"
+		template="/WEB-INF/views/layout.jsp">
+		<put-attribute name="navbar" value="/WEB-INF/views/navbar.jsp" /> <!-- 헤더는 무조건 이 파일을 쓴다는 의미 -->
+<!-- 		<put-attribute name="header" value="/WEB-INF/views/header.jsp" /> --> <!-- 메뉴는 무조건 이 파일을 쓴다는 의미 -->
+		<put-attribute name="section" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" /> <!-- 푸터는 무조건 이파일을 쓴다는 의미 -->
+	</definition>
+	<!-- (2) {1}폴더명 {2}는 jsp 이름 -->
+	<definition name="*/*" extends="tilesbase">
+		<put-attribute name="section" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<!-- 로그인 시 기본 메뉴바가 아닌 레이아웃 적용 -->
+	<definition name="loginlayout" template="/WEB-INF/views/loginlayout.jsp">
+		<put-attribute name="loginnavbar" value="/WEB-INF/views/loginnav.jsp" />
+		<!-- <put-attribute name="header" value="" /> -->
+		<put-attribute name="footer" value="" />	
+	</definition>
+	<definition name="login/selectLoginForm" extends="loginlayout">
+		<put-attribute name="section" value="/WEB-INF/views/login/selectLoginForm.jsp"/>
+	</definition>
+	<definition name="login/companyLoginForm" extends="loginlayout">
+		<put-attribute name="section" value="/WEB-INF/views/login/companyLoginForm.jsp"/>
+	</definition>
+	<definition name="login/memberLoginForm" extends="loginlayout">
+		<put-attribute name="section" value="/WEB-INF/views/login/memberLoginForm.jsp"/>
+	</definition>
+	<!-- 회원가입 시 기본 메뉴바가 아닌 레이아웃 적용 -->
+	<definition name="joinlayout" template="/WEB-INF/views/joinlayout.jsp">
+		<put-attribute name="navbar" value="/WEB-INF/views/joinnav.jsp" />
+		<!-- <put-attribute name="header" value="" /> -->
+		<put-attribute name="footer" value="" />	
+	</definition>
+	<definition name="join/selectJoinForm" extends="joinlayout">
+		<put-attribute name="section" value="/WEB-INF/views/join/selectJoinForm.jsp"/>
+	</definition>
+	<definition name="join/companyJoinForm" extends="joinlayout">
+		<put-attribute name="section" value="/WEB-INF/views/join/companyJoinForm.jsp"/>
+	</definition>
+	<definition name="join/memberJoinForm" extends="joinlayout">
+		<put-attribute name="section" value="/WEB-INF/views/join/memberJoinForm.jsp"/>
+	</definition>
+	<!-- 팝업 시 레이아웃 미적용 -->
+	<definition name="poplayout" template="/WEB-INF/views/poplayout.jsp">
+		<put-attribute name="navbar" value="" />
+		<put-attribute name="footer" value="" />
+	</definition>
+	<!-- 기업 ID, 비번 찾기 팝업 -->
+	<definition name="company/findComIdForm" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/company/findComIdForm.jsp"/>
+	</definition>
+	<definition name="company/findComPwForm" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/company/findComPwForm.jsp"/>
+	</definition>
+	<definition name="company/pwComAuth" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/company/pwComAuth.jsp"/>
+	</definition>
+	<definition name="company/newComPwForm" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/company/newComPwForm.jsp"/>
+	</definition>
+		<!-- 일반회원 ID, 비번 찾기 팝업 -->
+	<definition name="member/findMemIdForm" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/member/findMemIdForm.jsp"/>
+	</definition>
+	<definition name="member/findMemPwForm" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/member/findMemPwForm.jsp"/>
+	</definition>
+	<definition name="member/pwMemAuth" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/member/pwMemAuth.jsp"/>
+	</definition>
+	<definition name="member/newMemPwForm" extends="poplayout">
+		<put-attribute name="section" value="/WEB-INF/views/member/newMemPwForm.jsp"/>
+	</definition>	
+</tiles-definitions>
+	
